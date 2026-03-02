@@ -154,7 +154,7 @@ This dataset is used only for **scGPT in silico perturbation** (Step 8–9) to a
 - Series: **GSE135337**
 - Use: **7 bladder tumor samples**, **excluding GSM5329919**
 
-**Pre-downloaded files provided by this study**
+**Download source (pre-downloaded files provided by this study)**
 ```text
 https://drive.google.com/drive/folders/1lxx6em_xachidsaOuJBURZaBc_NCNkEk?usp=drive_link
 ```
@@ -168,6 +168,7 @@ BLCA/
 ```
 
 Step 8 merges all samples into a single `*.h5ad` and preserves raw counts in `adata.layers["counts"]` for Step 9 perturbation.
+
 
 ---
 
