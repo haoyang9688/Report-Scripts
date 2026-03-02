@@ -2,7 +2,7 @@
 # 🌿 The Computational biology test                           🌿
   🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿🎈🌿
 
-🤗This repository contains an end-to-end, **reproducible** pipeline to:
+🎉This repository contains an end-to-end, **reproducible** pipeline to:🎉
 
 1. **Merge TCGA STAR gene counts** (BLCA), generate **logCPM**, map **Ensembl → gene symbols**, and filter low-expression genes.
 2. Build **patient-level OS survival table** from the GDC API.
