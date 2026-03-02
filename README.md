@@ -66,7 +66,7 @@ pip install numpy pandas scipy scikit-learn matplotlib scanpy anndata leidenalg 
 
 ---
 
-## 🎉Data preparation
+## 👉👉👉Data preparation
 
 🤗🤗🤗This section describes **exactly which datasets are used** and how to organize them for this pipeline.
 
@@ -568,12 +568,12 @@ Ensure the folder contains exactly:
 - `best_model.pt`
 
 ### Memory / CUDA OOM in Step9
-- reduce `--batch_size` (e.g., 32 or 64)
+- reduce `--batch_size` (e.g., 32 or 64，👉this work:128)
 - use `--device cpu` for testing
 
 ---
 
-## Notes on reproducibility
+## 😊Notes on reproducibility
 - Scripts use explicit random seeds where applicable (see `--seed` in Step6).
 - To compare runs fairly, keep the same gene lists and preprocessing parameters.
 
