@@ -1,4 +1,4 @@
-# 🌿🌿🌿🌿🌿🌿BLCA Prognostic Signature Pipeline (TCGA-BLCA → GSE13507 validation → GSE135337 single-cell scGPT perturbation) 🌿🌿🌿🌿🌿🌿
+# 🌿🌿🌿🌿🌿🌿BLCA Prognostic Signature Pipeline (TCGA-BLCA → GSE13507 validation → GSE135337 single-cell scGPT perturbation)  🌿🌿🌿🌿🌿🌿
 
 This repository contains an end-to-end, **reproducible** pipeline to:
 
