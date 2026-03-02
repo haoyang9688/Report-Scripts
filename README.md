@@ -1,4 +1,3 @@
-# Report-Scripts
 # BLCA Prognostic Signature Pipeline (TCGA-BLCA → GSE13507 validation → GSE135337 single-cell scGPT perturbation)
 
 This repository contains an end-to-end, **reproducible** pipeline to:
@@ -69,29 +68,106 @@ pip install numpy pandas scipy scikit-learn matplotlib scanpy anndata leidenalg 
 
 ## Data preparation
 
-### 1) TCGA-BLCA STAR counts + metadata.cart JSON
-You need:
-- a `metadata.cart.*.json` from GDC
-- STAR gene-level count files downloaded via GDC (e.g., `*.rna_seq.augmented_star_gene_counts.tsv`)
+This section describes **exactly which datasets are used** and how to organize them for this pipeline.
 
-Expected folder layout (either is fine):
-- `download_dir/<file_id>/<file_name>`
-- or `download_dir/<file_name>`
+### 1) Training set: TCGA-BLCA (bulk RNA-seq + clinical survival; DNA methylation optional)
 
-### 2) GSE13507 expression + clinical table
-You need:
-- expression matrix (probe-level if starting from raw microarray)
-- clinical file with survival time and event columns used by your script/command
+**Required**
+- **Bulk RNA-seq gene expression (STAR-Counts)** for the **TCGA-BLCA** cohort
+- **Clinical survival information** (overall survival), used in Step 3 (queried automatically from GDC API by patient ID)
 
-### 3) GSE135337 scRNA-seq tables
-`step8` expects per-sample tables like:
-- `GSM*_gene_cell_exprs_table.txt.gz` (genes × cells)
+**Optional**
+- **DNA methylation** for TCGA-BLCA (used only if you run `stepM_tcga_methyl_fusion.py`)
 
-### 4) Pretrained scGPT checkpoint folder
-`step9` requires `--model_dir` containing:
-- `vocab.json`
-- `args.json`
-- `best_model.pt`
+**Download portal**
+```text
+https://portal.gdc.cancer.gov/projects/TCGA-BLCA
+```
+
+**What to download (recommended filters in GDC portal)**
+- Project: `TCGA-BLCA`
+- Data Category: `Transcriptome Profiling`
+- Data Type: `Gene Expression Quantification`
+- Workflow Type: `STAR - Counts`
+- Sample Types: `Primary Tumor`, `Solid Tissue Normal`
+
+After adding files to the cart, export:
+- the **downloaded STAR count files** (GDC Data Transfer Tool output), and
+- the corresponding `metadata.cart.*.json` (used by Step 1 / Step 2).
+
+**Expected local layout (example)**
+```text
+Training/
+  Bulk_RNA/
+    metadata.cart.YYYY-MM-DD.json
+    <file_id_1>/
+      *.star_gene_counts.tsv
+    <file_id_2>/
+      *.star_gene_counts.tsv
+```
+
+If you run methylation (optional), prepare:
+```text
+Training/
+  DNA_methylation/
+    metadata.cart.YYYY-MM-DD.json
+    <file_id_x>/
+      *.txt   (beta values / methylation table as provided by GDC)
+```
+
+---
+
+### 2) External test set: GSE13507 (GEO; 165 BLCA tumors, GSM340605–GSM340769)
+
+This dataset is used as an **external validation cohort** in Step 6 and Step 7.
+
+**Download source**
+```text
+https://www.ncbi.nlm.nih.gov/geo/
+```
+
+**Dataset**
+- Series: **GSE13507**
+- Samples: **GSM340605–GSM340769** (165 bladder tumor expression profiles)
+
+**What you need for this pipeline**
+- Expression matrix (probe-level or gene-level)
+- Clinical table containing survival time and event status (your `--gse_clin_tsv`)
+
+If the expression matrix is probe-level (typical microarray), run `step5_gse13507_probe_to_symbol.py` to map probes → gene symbols and collapse duplicates.
+
+**Expected local layout (example)**
+```text
+Test/
+  GSE13507/
+    GSE13507_expr_*.tsv(.gz)                 # expression (probe or gene symbol)
+    GSE13507_clinical_info.*.tsv             # survival / clinical info used by Step6/7
+```
+
+---
+
+### 3) Single-cell BLCA cohort for perturbation: GSE135337 (7 tumors, exclude GSM5329919)
+
+This dataset is used only for **scGPT in silico perturbation** (Step 8–9) to assess cell-type and pathway sensitivity of the prognostic genes.
+
+**Dataset**
+- Series: **GSE135337**
+- Use: **7 bladder tumor samples**, **excluding GSM5329919**
+
+**Pre-downloaded files provided by this study**
+```text
+https://drive.google.com/drive/folders/1lxx6em_xachidsaOuJBURZaBc_NCNkEk?usp=drive_link
+```
+
+**Expected input format for Step 8**
+Place the downloaded per-sample tables under:
+```text
+BLCA/
+  GSE135337/
+    GSM*_gene_cell_exprs_table.txt.gz        # genes × cells count table per sample
+```
+
+Step 8 merges all samples into a single `*.h5ad` and preserves raw counts in `adata.layers["counts"]` for Step 9 perturbation.
 
 ---
 
