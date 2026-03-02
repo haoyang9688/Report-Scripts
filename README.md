@@ -1,4 +1,4 @@
-# 🌿🎈🌿🎈🌿🎈🌿🎈 The Tests 🌿🎈🌿🎈🌿🎈🌿🎈
+# 🌿🎈🌿🎈🌿🎈🌿 The Computational biology test 🌿🎈🌿🎈🌿🎈🌿
 
 
 This repository contains an end-to-end, **reproducible** pipeline to:
