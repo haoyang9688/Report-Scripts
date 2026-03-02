@@ -35,7 +35,7 @@ Key scripts:
 
 ### 🤗System
 - Linux recommended
-- Python **3.9+** (3.10 suggested)
+- Python **3.11+** (3.11 suggested)
 
 ### 🤗Python packages
 Bulk pipeline (Steps 1–7):
