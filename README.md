@@ -1,4 +1,4 @@
-# 🌿🌿🌿🌿🌿🌿BLCA Prognostic Signature Pipeline (TCGA-BLCA → GSE13507 validation → GSE135337 single-cell scGPT perturbation)
+# 🌿🌿🌿🌿🌿🌿BLCA Prognostic Signature Pipeline (TCGA-BLCA → GSE13507 validation → GSE135337 single-cell scGPT perturbation)🌿🌿🌿🌿🌿🌿
 
 This repository contains an end-to-end, **reproducible** pipeline to:
 
@@ -11,7 +11,7 @@ This repository contains an end-to-end, **reproducible** pipeline to:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Repository layout
+## 😊Repository layout
 
 Key scripts:
 
@@ -29,13 +29,13 @@ Key scripts:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Requirements
+## 🤗Requirements
 
-### 🌿🌿🌿🌿🌿🌿System
+### 🤗System
 - Linux recommended
 - Python **3.9+** (3.10 suggested)
 
-### 🌿🌿🌿🌿🌿🌿Python packages
+### 🤗Python packages
 Bulk pipeline (Steps 1–7):
 - numpy, pandas, scipy
 - scikit-learn
@@ -68,7 +68,7 @@ pip install numpy pandas scipy scikit-learn matplotlib scanpy anndata leidenalg 
 
 ## 🎉Data preparation
 
-😊😊😊This section describes **exactly which datasets are used** and how to organize them for this pipeline.
+🤗🤗🤗This section describes **exactly which datasets are used** and how to organize them for this pipeline.
 
 **Download source (pre-downloaded files provided by this study)**
 ```text
@@ -173,7 +173,7 @@ Step 8 merges all samples into a single `*.h5ad` and preserves raw counts in `ad
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Full pipeline (commands)
+## 🤗Full pipeline (commands)
 
 Below are the commands used for the complete run (adapt paths to your system).
 
@@ -183,7 +183,7 @@ Below are the commands used for the complete run (adapt paths to your system).
 
 ---
 
-## Step 1 — Merge TCGA STAR counts (and logCPM)
+## 🤗Step 1 — Merge TCGA STAR counts (and logCPM)
 
 ```bash
 cd /data2/liu_hy/Hebei
@@ -218,7 +218,7 @@ PY
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 2 — Ensembl → gene symbol + CPM filter
+## 🤗Step 2 — Ensembl → gene symbol + CPM filter
 
 ```bash
 python3 step2_tcga_rna_to_symbol_and_filter.py \
@@ -255,7 +255,7 @@ PY
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 3 — Patient-level expression + OS survival (GDC API)
+## 🤗Step 3 — Patient-level expression + OS survival (GDC API)
 
 This step:
 - collapses sample → patient (`--collapse mean|median`)
@@ -276,7 +276,7 @@ Outputs:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 4 — Tumor vs Normal DE + PCA (candidate gene list)
+## 🤗Step 4 — Tumor vs Normal DE + PCA (candidate gene list)
 
 ```bash
 python3 step4_tcga_de_and_pca.py \
@@ -294,7 +294,7 @@ Outputs:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 5 — GSE13507 probe → gene symbol (GPL6102)
+## 🤗Step 5 — GSE13507 probe → gene symbol (GPL6102)
 
 If you start from probe-level microarray expression:
 
@@ -324,7 +324,7 @@ PY
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Optional — Methylation teacher / fusion models (StepM)
+## 🤗Optional — Methylation teacher / fusion models (StepM)
 
 `stepM_tcga_methyl_fusion.py` supports:
 - methyl_only
@@ -378,7 +378,7 @@ PY
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 6 — Train Cox model (TCGA) and validate on GSE13507
+## 🤗Step 6 — Train Cox model (TCGA) and validate on GSE13507
 
 Student distillation (RNA student) with a precomputed teacher risk:
 ```bash
@@ -407,7 +407,7 @@ Main outputs:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 7 — Compare with published signatures
+## 🤗Step 7 — Compare with published signatures
 
 ```bash
 python3 step7_compare_published_signature_TEMPLATE_3models.py \
@@ -427,7 +427,7 @@ Outputs:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 8 — GSE135337 scRNA merge + preprocess (Scanpy)
+## 🤗Step 8 — GSE135337 scRNA merge + preprocess (Scanpy)
 
 ```bash
 python3 step8_gse135337_merge_and_preprocess.py \
@@ -448,7 +448,7 @@ Outputs:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Step 9 — scGPT in silico perturbation (KD/OE)
+## 🤗Step 9 — scGPT in silico perturbation (KD/OE)
 
 ### Step 9a — write `celltype_pred` into the h5ad (recommended)
 
@@ -548,7 +548,7 @@ Outputs (in `--out_dir`):
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Troubleshooting
+## 🤗Troubleshooting
 
 ### Step3 cannot query GDC API
 - Ensure Internet access.
@@ -579,7 +579,7 @@ Ensure the folder contains exactly:
 
 ---
 
-## 🌿🌿🌿🌿🌿🌿Citation
+## 🤗Citation
 If you use this pipeline, please cite:
 - TCGA-BLCA (GDC / TCGA)
 - GEO: **GSE13507** and **GSE135337**
