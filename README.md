@@ -1,4 +1,4 @@
-# BLCA Prognostic Signature Pipeline (TCGA-BLCA → GSE13507 validation → GSE135337 single-cell scGPT perturbation)
+# 🎉BLCA Prognostic Signature Pipeline (TCGA-BLCA → GSE13507 validation → GSE135337 single-cell scGPT perturbation)
 
 This repository contains an end-to-end, **reproducible** pipeline to:
 
@@ -11,7 +11,7 @@ This repository contains an end-to-end, **reproducible** pipeline to:
 
 ---
 
-## Repository layout
+## 🎉Repository layout
 
 Key scripts:
 
@@ -29,13 +29,13 @@ Key scripts:
 
 ---
 
-## Requirements
+## 🎉Requirements
 
-### System
+### 🎉System
 - Linux recommended
 - Python **3.9+** (3.10 suggested)
 
-### Python packages
+### 🎉Python packages
 Bulk pipeline (Steps 1–7):
 - numpy, pandas, scipy
 - scikit-learn
@@ -66,9 +66,9 @@ pip install numpy pandas scipy scikit-learn matplotlib scanpy anndata leidenalg 
 
 ---
 
-## Data preparation
+## 🎉Data preparation
 
-☀️☀️☀️This section describes **exactly which datasets are used** and how to organize them for this pipeline.
+😊😊😊This section describes **exactly which datasets are used** and how to organize them for this pipeline.
 
 **Download source (pre-downloaded files provided by this study)**
 ```text
@@ -548,7 +548,7 @@ Outputs (in `--out_dir`):
 
 ---
 
-## Troubleshooting
+## 🎉Troubleshooting
 
 ### Step3 cannot query GDC API
 - Ensure Internet access.
