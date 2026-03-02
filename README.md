@@ -68,7 +68,12 @@ pip install numpy pandas scipy scikit-learn matplotlib scanpy anndata leidenalg 
 
 ## Data preparation
 
-This section describes **exactly which datasets are used** and how to organize them for this pipeline.
+☀️☀️☀️This section describes **exactly which datasets are used** and how to organize them for this pipeline.
+
+**Download source (pre-downloaded files provided by this study)**
+```text
+https://drive.google.com/drive/folders/1lxx6em_xachidsaOuJBURZaBc_NCNkEk?usp=drive_link
+```
 
 ### 1) Training set: TCGA-BLCA (bulk RNA-seq + clinical survival; DNA methylation optional)
 
@@ -154,10 +159,6 @@ This dataset is used only for **scGPT in silico perturbation** (Step 8–9) to a
 - Series: **GSE135337**
 - Use: **7 bladder tumor samples**, **excluding GSM5329919**
 
-**Download source (pre-downloaded files provided by this study)**
-```text
-https://drive.google.com/drive/folders/1lxx6em_xachidsaOuJBURZaBc_NCNkEk?usp=drive_link
-```
 
 **Expected input format for Step 8**
 Place the downloaded per-sample tables under:
