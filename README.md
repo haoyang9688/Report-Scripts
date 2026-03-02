@@ -578,7 +578,7 @@ Ensure the folder contains exactly:
 
 ---
 
-## 😊Notes on reproducibility
+## 🤗Notes on reproducibility
 - Scripts use explicit random seeds where applicable (see `--seed` in Step6).
 - To compare runs fairly, keep the same gene lists and preprocessing parameters.
 
