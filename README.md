@@ -37,6 +37,9 @@ Key scripts:
 - Linux recommended
 - Python **3.11+** (3.11 suggested)
 
+### 🤗computation resource
+- Experiments were run on an x86_64 Linux server with 80 logical CPUs and one NVIDIA A100 PCIe GPU (40,960 MiB VRAM). The system used NVIDIA driver 525.85.12 and CUDA 12.0.
+
 ### 🤗Python packages
 Bulk pipeline (Steps 1–7):
 - numpy, pandas, scipy
