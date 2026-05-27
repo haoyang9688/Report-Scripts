@@ -216,34 +216,6 @@ objective = score_z + cai_z
 - `CSI`：保留用于日志和结果报告，不参与主目标；
 - `MFE`：以长度校正残差 `mfe_residual` 进入生物可行性建模。
 
-### 5.2 与 `score.py` 对齐的打分逻辑
-
-本版本 `step2_RL_final.py` 已经将 RL 内部 scorer 改成与单独复评分脚本一致：
-
-```text
-HEK293T_10552_RPKM.npz 存储原始 RPKM
-env_vec = log2(raw_RPKM + 1)
-scalar mRNA input = median(log2(raw_RPKM + 1))
-```
-
-对应参数在代码中为：
-
-```python
-CONDITION_KEY = "mRNA"
-ENV_TRANSFORM = "log2p1"
-RNA_SCALE = "rpkm"
-MRNA_ABUNDANCE_STRATEGY = "median"
-```
-
-运行日志中应看到类似：
-
-```text
-[INFO] RL scorer condition logic aligned with score.py | env_transform=log2p1 | hek_mRNA_logRNA=... | hek_mRNA_RPKM=...
-```
-
-这说明 RL 内部不再使用旧的 `np.log1p(RPKM*5)` 和固定 `mRNA_count=4.5`。
-
----
 
 ## 6. Step 2 运行命令
 
@@ -393,11 +365,7 @@ s_bio >= 0.70
 
 ## 9. 常见问题
 
-### 9.1 `No valid start sequences found`
-
-说明 `step2_RL_final.py` 中的 `ORIGINAL_FILE` 路径不存在，或者文件中没有合法 CDS。请检查 Step 1 输出文件，并确认是否已按第 4.5 节复制/重命名。
-
-### 9.2 `ViennaRNA not available`
+### 9.1 `ViennaRNA not available`
 
 说明当前环境无法导入 `RNA`。请确认：
 
@@ -408,7 +376,7 @@ python -c "import RNA; print(RNA.__version__)"
 
 如果报错，需要重新安装 ViennaRNA，或在代码中关闭 MFE 相关计算。
 
-### 9.3 GPU 显存不足
+### 9.2 GPU 显存不足
 
 降低并行 worker 数量：
 
@@ -422,7 +390,7 @@ export RL_MAX_PARALLEL_START_JOBS=1
 export CUDA_VISIBLE_DEVICES=0
 ```
 
-### 9.4 结果和旧版本不一致
+### 9.3 结果和旧版本不一致
 
 这是正常的。本版本 RL 内部打分逻辑已经改为：
 
@@ -433,7 +401,7 @@ scalar mRNA input = median(log2(RPKM+1))
 
 如果旧版本使用 `np.log1p(RPKM*5)` 和 `mRNA_count=4.5`，则 reward、score_z、最终候选排序都可能不同。新旧结果不建议混合比较。
 
-### 9.5 输出目录已有旧结果
+### 9.4 输出目录已有旧结果
 
 建议将 `step2_RL_final.py` 中的：
 
@@ -491,6 +459,3 @@ nohup python step2_RL_final.py > step2_RL_final.log 2>&1 &
 
 ---
 
-## 11. 方法学简述
-
-本流程首先基于标准遗传密码表，对固定 Gluc 氨基酸序列进行无偏均匀同义密码子采样，生成大规模随机 CDS 候选池；随后根据 HEK293T 高表达密码子权重计算 CAI，并选择低 CAI 序列作为强化学习起始序列。强化学习阶段以固定目标氨基酸序列为约束，将动作定义为指定位置的同义密码子替换，保证优化过程中蛋白质产物不变。奖励函数采用翻译预测分数标准化值与 HEK293T CAI 标准化值之和，即 `score_z + CAI_z`。翻译分数由冻结的 `best_model.p` 在固定 HEK293T 10552 维表达环境下预测得到，其中 HEK293T 原始 RPKM 转换为 `log2(RPKM+1)` 作为环境向量，scalar mRNA input 取 HEK293T `log2(RPKM+1)` 分布中位数。最终候选序列在满足中心相似性下限的前提下，按综合目标函数和翻译预测分数排序导出。
