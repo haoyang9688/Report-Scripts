@@ -442,7 +442,7 @@ python step1_generate_gluc_random_cds.py \
   --calc_mfe_for_selected
 
 # 3. 复制为 step2 默认读取的文件名
-cp /data/hyliu/HEK293T_RL/challenge_start_pool/Gluc_MF882921_uniformRandom_seed2026.lowestCAI_top10_sequences.txt \
+cp /data/hyliu/HEK293T_RL/challenge_start_pool/Gluc_MF882921_uniformRandom_seed2026_top10_sequences.txt \
    /data/hyliu/HEK293T_RL/challenge_start_pool/Gluc_MF882921_uniformRandom_seed2026_top10_sequences
 
 # 4. 先单起点测试
@@ -458,4 +458,14 @@ nohup python step2_RL_final.py > step2_RL_final.log 2>&1 &
 ```
 
 ---
-
+## 10. 5种密码子优化在线工具地址
+1 纽普生物
+https://www.novopro.cn/tools/codon-optimization.html
+2 云舟生物
+https://www.vectorbuilder.cn/tool/codon-optimization.html
+3 金斯瑞
+https://www.genscript.com.cn/tools/gensmart-codon-optimization
+4 金唯智
+https://www.genewiz.com/public/services/gene-synthesis/codon-optimization
+5 赛默飞
+https://www.thermofisher.cn/cn/zh/home/life-science/cloning/gene-synthesis/value-of-dna-project.html
